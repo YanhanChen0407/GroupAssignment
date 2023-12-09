@@ -71,5 +71,13 @@
             }
             return View(model);
         }
+
+        public IActionResult Users()
+        {
+            var users = _dbContext.Users.Select(u => new UserModel { Username = u.Username,Email = u.Email, Role = u.Role }).ToList();
+
+            return View(users);
+        }
+
     }
 }

@@ -19,11 +19,19 @@
             <p>Welcome, @username!</p>
             <p>Role: @userRole</p>
         </div>
+        @if (userRole == "Manager")
+        {
+            <div>
+                <a href="/Account/Users" class="btn btn-primary">View All Users</a>
+            </div>
+        }
     }
     else
     {
         <p>User information not available.</p>
     }
+
+
 
     <!-- Add your inventory management content here -->
 </div>
