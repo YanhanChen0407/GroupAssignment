@@ -4,6 +4,7 @@
     using GroupAssignment.Data;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using GroupAssignment;
 
     public class AccountController : Controller
     {
