@@ -17,8 +17,6 @@ namespace GroupAssignment
         {
         }
 
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserModel>().HasKey(u => u.Id);
