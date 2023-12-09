@@ -1,10 +1,18 @@
-﻿using GroupAssignment.Models;
+﻿using GroupAssignment;
+using GroupAssignment.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 public class InventoryController : Controller
 {
+    private readonly AppDbContext _dbContext;
+
+    public InventoryController(AppDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+
     public IActionResult Index()
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -17,9 +25,13 @@ public class InventoryController : Controller
 
     public IActionResult ProductList()
     {
-        //var products = _dbContext.Products.Select(p => new ProductModel { Id = p.Id, ProductName = p.ProductName, Quantities = p.Quantities, Description = p.Description }).ToList();
+        //var products = _dbContext.Products.Select(p => new ProductModel { Id = p.Id, 
+        //                                                                  ProductName = p.ProductName, 
+        //                                                                  ProductQuantity = p.ProductQuantity, 
+        //                                                                  ProductDescription = p.ProductDescription }).ToList();
+        var products = _dbContext.Products.ToList();
 
-        return View(/*products*/);
+        return View(products);
     }
 
 
