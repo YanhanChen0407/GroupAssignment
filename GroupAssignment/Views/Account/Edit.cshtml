@@ -1,0 +1,35 @@
+﻿<!-- Views/Account/Edit.cshtml -->
+@model GroupAssignment.Models.UserModel
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-controller="Account" asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label asp-for="Username">Username:</label>
+        <input asp-for="Username" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Email">Email:</label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Role">Role:</label>
+        <select asp-for="Role" class="form-control">
+            <option value="Employee">Employee</option>
+            <option value="Manager">Manager</option>
+        </select>
+        <span asp-validation-for="Role" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit">Save Changes</button>
+</form>
