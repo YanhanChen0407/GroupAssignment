@@ -1,0 +1,29 @@
+﻿<!-- Views/Inventory/Index.cshtml -->
+@model GroupAssignment.Models.UserModel
+
+@{
+    ViewData["Title"] = "Inventory Management";
+}
+
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+   @if (TempData.ContainsKey("UserId") && TempData.ContainsKey("Username") && TempData.ContainsKey("UserRole"))
+    {
+        var userId = TempData["UserId"] as int?;
+        var username = TempData["Username"] as string;
+        var userRole = TempData["UserRole"] as string;
+
+        <div>
+            <p>Welcome, @username!</p>
+            <p>Role: @userRole</p>
+        </div>
+    }
+    else
+    {
+        <p>User information not available.</p>
+    }
+
+    <!-- Add your inventory management content here -->
+</div>

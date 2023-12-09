@@ -1,4 +1,5 @@
 using GroupAssignment;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlite("Data Source=app.db");
 });
+
+// Add authentication services
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+        options.LogoutPath = "/Account/Logout";
+    });
 
 var app = builder.Build();
 
@@ -26,6 +36,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Add authentication middleware
+app.UseAuthentication();
 
 app.UseAuthorization();
 

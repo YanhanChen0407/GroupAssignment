@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace GroupAssignment
 {
@@ -23,7 +24,12 @@ namespace GroupAssignment
             {
                 options.UseSqlite("Data Source=..\\app.db");
             });
-
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.LogoutPath = "/Account/Logout";
+            });
             services.AddControllersWithViews();
 
 

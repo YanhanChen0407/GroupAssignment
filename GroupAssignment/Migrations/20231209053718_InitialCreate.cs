@@ -16,6 +16,7 @@ namespace GroupAssignment.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Role = table.Column<string>(type: "TEXT", nullable: false),
                     Username = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Password = table.Column<string>(type: "TEXT", nullable: false)

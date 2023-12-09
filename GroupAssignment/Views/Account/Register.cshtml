@@ -1,5 +1,4 @@
 ﻿@model GroupAssignment.Models.UserModel
-
 @{
     ViewData["Title"] = "User Register";
 }
@@ -23,6 +22,14 @@
         <label asp-for="Password">Password：</label>
         <input asp-for="Password" />
         <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <label asp-for="Role">Role：</label>
+        <select asp-for="Role" class="form-control">
+            <option value="Employee">Employee</option>
+            <option value="Manager">Manager</option>
+        </select>
+        <span asp-validation-for="Role" class="text-danger"></span>
     </div>
 
     <button type="submit">Register</button>
