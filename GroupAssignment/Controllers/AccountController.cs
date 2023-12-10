@@ -100,24 +100,24 @@
         }
 
         [HttpPost]
-        public IActionResult Edit([Bind("Id,Username,Role")] UserModel model)
+        public IActionResult Edit([Bind("Id,Username,Email,Role")] UserModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = _dbContext.Users.FirstOrDefault(u => u.Id == model.Id);
 
-                if (user != null)
-                {
-                    user.Username = model.Username;
-                    user.Email = model.Email;
-                    user.Role = model.Role;
-
-                    _dbContext.SaveChanges();
-
-                    return RedirectToAction("Users");
-                }
             }
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == model.Id);
 
+            if (user != null)
+            {
+                user.Username = model.Username;
+                user.Email = model.Email;
+                user.Role = model.Role;
+
+                _dbContext.SaveChanges();
+
+                return RedirectToAction("Users");
+            }
             return View(model);
         }
 
