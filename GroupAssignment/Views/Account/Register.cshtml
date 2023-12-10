@@ -3,6 +3,51 @@
     ViewData["Title"] = "User Register";
 }
 
+<style>
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    h1 {
+        text-align: center;
+    }
+    form {
+        text-align: center;
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px;
+        margin: auto; 
+    }
+    div {
+        margin-bottom: 10px;
+    }
+
+    label {
+        display: block;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-top: 4px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+
 <h1>@ViewData["Title"]</h1>
 
 <form asp-controller="Account" asp-action="Register" method="post">
