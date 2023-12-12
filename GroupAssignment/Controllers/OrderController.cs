@@ -36,6 +36,7 @@ namespace GroupAssignment.Controllers
             }
 
             var orderEntity = await _context.Orders
+                .Include(o => o.Products)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orderEntity == null)
             {
@@ -76,7 +77,9 @@ namespace GroupAssignment.Controllers
                 return NotFound();
             }
 
-            var orderEntity = await _context.Orders.FindAsync(id);
+            var orderEntity = await _context.Orders
+                .Include(o => o.Products)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (orderEntity == null)
             {
                 return NotFound();
@@ -89,7 +92,7 @@ namespace GroupAssignment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,UserName,MFRName,OrderDescription,OrderStatus,OrderDate,OrderDeliveryDate")] OrderEntity orderEntity)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,UserName,MFRName,OrderDescription,OrderStatus,OrderDate,OrderDeliveryDate,Products")] OrderEntity orderEntity)
         {
             if (id != orderEntity.Id)
             {

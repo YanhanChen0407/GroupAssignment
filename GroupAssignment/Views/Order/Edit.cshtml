@@ -43,6 +43,40 @@
                 <input asp-for="OrderDeliveryDate" class="form-control" />
                 <span asp-validation-for="OrderDeliveryDate" class="text-danger"></span>
             </div>
+            <div>
+                <h2>Product Details</h2>
+                <table class="table" id="productTable">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Products.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <input asp-for="Products[i].ProductName" class="form-control" />
+                                    @Html.HiddenFor(_ => Model.Products[i].Id) 
+                                </td>
+                                <td>
+                                    <input asp-for="Products[i].ProductQuantity" type="number" class="form-control" />
+                                </td>
+                                <td>
+                                    <input asp-for="Products[i].ProductDescription" class="form-control" />
+                                </td>
+                                <td>
+                                    <button type="button" onclick="removeRow(this)" class="btn btn-danger">Remove</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" onclick="addRow()" class="btn btn-default">Add Row</button>
+                </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -56,4 +90,32 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function addRow() {
+            var table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+            var index = table.rows.length;
+            var newRow = table.insertRow(table.rows.length);
+
+            newRow.innerHTML =
+                '<td><input type="text" name="Products[' + index + '].ProductName" class="form-control" /></td>' +
+                '<td><input type="number" name="Products[' + index + '].ProductQuantity" class="form-control" /></td>' +
+                '<td><input type="text" name="Products[' + index + '].ProductDescription" class="form-control" /></td>'+
+                '<td><button type="button" onclick="removeRow(this)" class="btn btn-danger">Remove</button></td>';
+        }
+
+         function removeRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            reindexRows();
+        }
+
+        function reindexRows() {
+            var rows = document.getElementById('productTable').getElementsByTagName('tbody')[0].rows;
+            for (var i = 0; i < rows.length; i++) {
+                rows[i].cells[0].getElementsByTagName('input')[0].setAttribute('name', 'Products[' + i + '].ProductName');
+                rows[i].cells[1].getElementsByTagName('input')[0].setAttribute('name', 'Products[' + i + '].ProductQuantity');
+                rows[i].cells[2].getElementsByTagName('input')[0].setAttribute('name', 'Products[' + i + '].ProductDescription');
+            }
+        }
+    </script>
 }
