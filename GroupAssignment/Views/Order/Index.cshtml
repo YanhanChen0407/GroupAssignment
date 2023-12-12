@@ -1,71 +1,82 @@
 ﻿@model IEnumerable<GroupAssignment.Models.OrderEntity>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Orders List";
 }
 
-<h1>Index</h1>
+<style>
+    .info-text {
+        color: #155724; /* Dark green for better contrast */
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MFRName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderDeliveryDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MFRName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderDeliveryDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    .custom-header {
+        background-color: #d4edda; /* Lighter green header background for contrast */
+        color: #0c5460; /* Dark blue text color for contrast */
+    }
+
+    .table-custom {
+        background-color: #ffffff; /* White background for table ensures text visibility */
+        border: 1px solid #dee2e6; /* Light gray border for subtle contrast */
+    }
+
+    .btn-custom {
+        background-color: #28a745; /* Bootstrap green color for buttons */
+        color: white; /* White text for contrast */
+        margin-right: 5px; /* Add some spacing between the buttons */
+    }
+
+    .btn-custom-back {
+        background-color: #6c757d; /* Bootstrap gray color for back button */
+        color: white; /* White text for contrast */
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 5px; /* Adds space between buttons */
+    }
+</style>
+
+<div class="container mt-4">
+    <h1 class="info-text">@ViewData["Title"]</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-custom">Create New</a>
+        <a href="@Url.Action("ProductList", "Inventory")" class="btn btn-custom">View Products</a>
+    </p>
+
+    <table class="table table-custom table-striped">
+        <thead class="custom-header">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                <th>@Html.DisplayNameFor(model => model.MFRName)</th>
+                <th>@Html.DisplayNameFor(model => model.OrderDescription)</th>
+                <th>@Html.DisplayNameFor(model => model.OrderStatus)</th>
+                <th>@Html.DisplayNameFor(model => model.OrderDate)</th>
+                <th>@Html.DisplayNameFor(model => model.OrderDeliveryDate)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MFRName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.OrderDescription)</td>
+                    <td>@Html.DisplayFor(modelItem => item.OrderStatus)</td>
+                    <td>@Html.DisplayFor(modelItem => item.OrderDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.OrderDeliveryDate)</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-custom">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-custom">Details</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

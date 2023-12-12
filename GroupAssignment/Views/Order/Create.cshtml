@@ -1,98 +1,155 @@
 ﻿@model GroupAssignment.Models.OrderEntity
+
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Order";
 }
 
-<h1>Create</h1>
-
-<h4>OrderEntity</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="MFRName" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="MFRName" class="control-label"></label>
-                <input asp-for="MFRName" class="form-control" />
-                <span asp-validation-for="MFRName" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="OrderDescription" class="control-label"></label>
-                <input asp-for="OrderDescription" class="form-control" />
-                <span asp-validation-for="OrderDescription" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="OrderStatus" class="control-label"></label>
-                <select asp-for="OrderStatus" class="form-control">
-                    <option value="Pending">Pending</option>
-                    <option value="Progress">In Progress</option>
-                    <option value="Shipped">Shipped</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="OrderDate" class="control-label"></label>
-                <input asp-for="OrderDate" class="form-control" />
-                <span asp-validation-for="OrderDate" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="OrderDeliveryDate" class="control-label"></label>
-                <input asp-for="OrderDeliveryDate" class="form-control" />
-                <span asp-validation-for="OrderDeliveryDate" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <table id="ProductTable" class="table>">
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Product Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Existing rows, if any -->
-                    </tbody>
-                </table>
-                <button type="button" onclick="AddRow()">Add Product</button>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+<style>
+    .info-text {
+        color: #155724; /* Dark green for better contrast */
     }
-    <script>
-        function AddRow() {
-            var index = document.querySelectorAll("#ProductTable tbody tr").length;
-            var table = document.getElementById("ProductTable");
-            var newRow = table.insertRow(-1);
 
-            newRow.innerHTML = `
-                          <td><input type="text" name="Products[${index}].ProductName" class="form-control" /></td>
-                          <td><input type="number" name="Products[${index}].ProductQuantity" class="form-control" /></td>
-                          <td><input type="text" name="Products[${index}].ProductDescription" class="form-control" /></td>
-                        `;
+    .custom-header {
+        background-color: #d4edda; /* Lighter green header background for contrast */
+        color: #0c5460; /* Dark blue text color for contrast */
+    }
+
+    .custom-body {
+        background-color: #f8f9fa; /* Light gray body background, ensuring dark text is visible */
+    }
+
+    .table-custom {
+        background-color: #ffffff; /* White background for table ensures text visibility */
+        border: 1px solid #dee2e6; /* Light gray border for subtle contrast */
+    }
+
+    .btn-custom {
+        background-color: #28a745; /* Bootstrap green color for buttons */
+        color: white; /* White text for contrast */
+    }
+
+    .btn-custom-back {
+        background-color: #6c757d; /* Bootstrap gray color for back button */
+        color: white; /* White text for contrast */
+    }
+</style>
+
+<div class="container mt-4">
+    <h1 class="info-text">@ViewData["Title"]</h1>
+
+    <div class="card border-info mb-4">
+        <div class="card-header custom-header">
+            <h4 class="mb-0">Create New Order</h4>
+        </div>
+        <div class="card-body custom-body">
+            <form asp-action="Create">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- UserName -->
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label">User Name</label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+
+                <!-- MFRName -->
+                <div class="form-group">
+                    <label asp-for="MFRName" class="control-label">Manufacturer Name</label>
+                    <input asp-for="MFRName" class="form-control" />
+                    <span asp-validation-for="MFRName" class="text-danger"></span>
+                </div>
+
+                <!-- OrderDescription -->
+                <div class="form-group">
+                    <label asp-for="OrderDescription" class="control-label">Order Description</label>
+                    <input asp-for="OrderDescription" class="form-control" />
+                    <span asp-validation-for="OrderDescription" class="text-danger"></span>
+                </div>
+
+                <!-- OrderStatus -->
+                <div class="form-group">
+                    <label asp-for="OrderStatus" class="control-label">Order Status</label>
+                    <select asp-for="OrderStatus" class="form-control">
+                        <option value="Pending">Pending</option>
+                        <option value="Progress">In Progress</option>
+                        <option value="Shipped">Shipped</option>
+                    </select>
+                </div>
+
+                <!-- OrderDate -->
+                <div class="form-group">
+                    <label asp-for="OrderDate" class="control-label">Order Date</label>
+                    <input asp-for="OrderDate" class="form-control" />
+                    <span asp-validation-for="OrderDate" class="text-danger"></span>
+                </div>
+
+                <!-- OrderDeliveryDate -->
+                <div class="form-group">
+                    <label asp-for="OrderDeliveryDate" class="control-label">Order Delivery Date</label>
+                    <input asp-for="OrderDeliveryDate" class="form-control" />
+                    <span asp-validation-for="OrderDeliveryDate" class="text-danger"></span>
+                </div>
+
+                <!-- Product Table -->
+                <div class="form-group">
+                    <table id="ProductTable" class="table table-custom">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Product Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Existing rows, if any -->
+                        </tbody>
+                    </table>
+                    <button style=margin:5px; type ="button" onclick="AddRow()" class="btn btn-custom">Add Product</button>
+                </div>
+
+                <div class="form-group">
+                    <input style=margin:5px; type="submit" value="Create" class="btn btn-custom" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-custom-back">Back to List</a>
+
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+            <script>
+                function AddRow() {
+                    var index = document.querySelectorAll("#ProductTable tbody tr").length;
+                    var table = document.getElementById("ProductTable");
+                    var newRow = table.insertRow(-1);
+
+                    newRow.innerHTML = `
+                                          <td><input type="text" name="Products[${index}].ProductName" class="form-control" /></td>
+                                          <td><input type="number" name="Products[${index}].ProductQuantity" class="form-control" /></td>
+                                          <td><input type="text" name="Products[${index}].ProductDescription" class="form-control" /></td>
+                                          <td><button type="button" onclick="removeRow(this)" class="btn btn-danger">Remove</button></td>
+                                        `;
+                }
+                function removeRow(button) {
+                    var row = button.parentNode.parentNode;
+                    row.parentNode.removeChild(row);
+                    reindexRows();
+                }
+
+                function reindexRows() {
+                    var rows = document.getElementById('productTable').getElementsByTagName('tbody')[0].rows;
+                    for (var i = 0; i < rows.length; i++) {
+                        rows[i].cells[0].getElementsByTagName('input')[0].setAttribute('name', 'Products[' + i + '].ProductName');
+                        rows[i].cells[1].getElementsByTagName('input')[0].setAttribute('name', 'Products[' + i + '].ProductQuantity');
+                        rows[i].cells[2].getElementsByTagName('input')[0].setAttribute('name', 'Products[' + i + '].ProductDescription');
+                    }
+                }
+            </script>
         }
-    </script>
-}
