@@ -1,5 +1,4 @@
-﻿@model GroupAssignment.Data.Entities.OrderEntity
-
+﻿@model GroupAssignment.Models.OrderEntity
 @{
     ViewData["Title"] = "Create";
 }
@@ -12,6 +11,12 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="MFRName" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="MFRName" class="control-label"></label>
                 <input asp-for="MFRName" class="form-control" />
@@ -46,13 +51,12 @@
             </div>
 
             <div class="form-group">
-                <table id="ProductTable" class="table> style="width:100%">
+                <table id="ProductTable" class="table>">
                     <thead>
                         <tr>
                             <th>Product Name</th>
                             <th>Quantity</th>
                             <th>Product Description</th>
-                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,55 +79,20 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     <script>
-        /*
-             . Hidding table on load
-        */
-        document.getElementById('ProductTable').style.display = 'none';
-
         function AddRow() {
-            // Get the table by ID
+            var index = document.querySelectorAll("#ProductTable tbody tr").length;
             var table = document.getElementById("ProductTable");
-
-            // Insert a row at the end of the table
             var newRow = table.insertRow(-1);
 
-            // Insert cells (`<td>`) into the new row
-            var cell1 = newRow.insertCell(0);
-            var cell2 = newRow.insertCell(1);
-            var cell3 = newRow.insertCell(2);
-
-
-            // Add your content to the cells - here we're adding text inputs as an example
-            cell1.innerHTML = '<input type="text" name="productName" class="form-control" placeholder="Product Name">';
-            cell2.innerHTML = '<input type="number" name="quantity" class="form-control" placeholder="Quantity">';
-            cell3.innerHTML = '<input type="text" name="productDescription" class="form-control" placeholder="Product Description">';
-        }
-
-        function gatherTableData() {
-            // Initialize an empty array to hold our objects
-            var productList = [];
-
-            // Get all the table rows in the body of the ProductTable
-            var rows = document.getElementById("ProductTable").getElementsByTagName("tbody")[0].rows;
-
-            // Iterate over each row
-            for (var i = 0; i < rows.length; i++) {
-                // Get the inputs from the current row
-                var productName = rows[i].cells[0].getElementsByTagName("input")[0].value;
-                var quantity = rows[i].cells[1].getElementsByTagName("input")[0].value;
-                var productDescription = rows[i].cells[2].getElementsByTagName("input")[0].value;
-
-                // Create an object representing the current product
-                var product = {
-                    productName: productName,
-                    quantity: quantity,
-                    productDescription: productDescription
-                };
-
-                // Add the product object to our list
-                productList.push(product);
-            }
+            newRow.innerHTML = `
+                          <td><input type="text" name="Products[${index}].ProductName" class="form-control" /></td>
+                          <td><input type="number" name="Products[${index}].ProductQuantity" class="form-control" /></td>
+                          <td><input type="text" name="Products[${index}].ProductDescription" class="form-control" /></td>
+                        `;
         }
     </script>
+}

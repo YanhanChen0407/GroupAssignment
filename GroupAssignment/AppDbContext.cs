@@ -1,6 +1,4 @@
-﻿
-using GroupAssignment.Data.Entities;
-using GroupAssignment.Models;
+﻿using GroupAssignment.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GroupAssignment
@@ -35,8 +33,6 @@ namespace GroupAssignment
             optionsBuilder.UseSqlite("Data Source=..\\app.db");
 
         }
-
-        public DbSet<GroupAssignment.Models.OrderModel> OrderModel { get; set; } = default!;
 
 
     }

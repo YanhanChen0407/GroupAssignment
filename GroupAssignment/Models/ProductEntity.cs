@@ -1,4 +1,4 @@
-﻿namespace GroupAssignment.Data.Entities
+﻿namespace GroupAssignment.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;

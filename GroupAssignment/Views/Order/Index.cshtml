@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GroupAssignment.Data.Entities.OrderEntity>
+﻿@model IEnumerable<GroupAssignment.Models.OrderEntity>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,6 +12,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.MFRName)
             </th>
@@ -33,6 +36,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MFRName)
             </td>

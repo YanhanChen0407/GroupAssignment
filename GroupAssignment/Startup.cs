@@ -57,7 +57,7 @@ namespace GroupAssignment
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Order}/{action=Create}");
+                    pattern: "{controller=Account}/{action=Login}");
             });
         }
     }

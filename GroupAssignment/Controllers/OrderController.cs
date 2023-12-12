@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GroupAssignment;
-using GroupAssignment.Data.Entities;
+using GroupAssignment.Models;
 
 namespace GroupAssignment.Controllers
 {
@@ -56,7 +56,7 @@ namespace GroupAssignment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MFRName,OrderDescription,OrderStatus,OrderDate,OrderDeliveryDate,OrderDeliveryAddress")] OrderEntity orderEntity)
+        public async Task<IActionResult> Create([Bind("Id,UserName,MFRName,OrderDescription,OrderStatus,OrderDate,OrderDeliveryDate,Products")] OrderEntity orderEntity)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace GroupAssignment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,MFRName,OrderDescription,OrderStatus,OrderDate,OrderDeliveryDate")] OrderEntity orderEntity)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,UserName,MFRName,OrderDescription,OrderStatus,OrderDate,OrderDeliveryDate")] OrderEntity orderEntity)
         {
             if (id != orderEntity.Id)
             {

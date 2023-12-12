@@ -1,7 +1,6 @@
 ﻿namespace GroupAssignment.Controllers
 {
     using GroupAssignment.Models;
-    using GroupAssignment.Data;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using GroupAssignment;

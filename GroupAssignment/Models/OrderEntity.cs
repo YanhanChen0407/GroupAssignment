@@ -1,12 +1,13 @@
-﻿using GroupAssignment.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace GroupAssignment.Data.Entities
+namespace GroupAssignment.Models
 {
     public class OrderEntity
     {
         [Key]
         public Guid Id { get; set; }
+        [Required]
+        public string UserName { get; set; }
         [Required]
         public string MFRName { get; set; }
         public string OrderDescription { get; set; }
@@ -14,8 +15,6 @@ namespace GroupAssignment.Data.Entities
         public DateTime OrderDate { get; set; } = DateTime.Now;
         public DateTime OrderDeliveryDate { get; set; } = DateTime.Now.AddDays(10);
         [Required]
-        public UserModel User { get; set; }
-        [Required]
-        public List<ProductModel> Products { get; set; }
+        public List<ProductEntity> Products { get; set; }
     }
 }

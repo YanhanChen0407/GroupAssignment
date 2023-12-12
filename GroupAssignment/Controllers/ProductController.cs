@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GroupAssignment;
-using GroupAssignment.Data.Entities;
+using GroupAssignment.Models;
 
 namespace GroupAssignment.Controllers
 {
