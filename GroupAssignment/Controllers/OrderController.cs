@@ -131,6 +131,7 @@ namespace GroupAssignment.Controllers
             }
 
             var orderEntity = await _context.Orders
+                .Include(o => o.Products)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orderEntity == null)
             {

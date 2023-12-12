@@ -40,30 +40,61 @@
         </div>
         <div class="card-body custom-body">
             <dl class="row">
-                <dt class="col-sm-2">Username:</dt>
-                <dd class="col-sm-10">@Html.DisplayFor(model => model.UserName)</dd>
+                <dt class="col-sm-4">Username:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.UserName)</dd>
 
-                <dt class="col-sm-2">Manufacturer Name:</dt>
-                <dd class="col-sm-10">@Html.DisplayFor(model => model.MFRName)</dd>
+                <dt class="col-sm-4">Manufacturer Name:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.MFRName)</dd>
 
-                <dt class="col-sm-2">Order Description:</dt>
-                <dd class="col-sm-10">@Html.DisplayFor(model => model.OrderDescription)</dd>
+                <dt class="col-sm-4">Order Description:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.OrderDescription)</dd>
 
-                <dt class="col-sm-2">Order Status:</dt>
-                <dd class="col-sm-10">@Html.DisplayFor(model => model.OrderStatus)</dd>
+                <dt class="col-sm-4">Order Status:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.OrderStatus)</dd>
 
-                <dt class="col-sm-2">Order Date:</dt>
-                <dd class="col-sm-10">@Html.DisplayFor(model => model.OrderDate)</dd>
+                <dt class="col-sm-4">Order Date:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.OrderDate)</dd>
 
-                <dt class="col-sm-2">Delivery Date:</dt>
-                <dd class="col-sm-10">@Html.DisplayFor(model => model.OrderDeliveryDate)</dd>
+                <dt class="col-sm-4">Delivery Date:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.OrderDeliveryDate)</dd>
             </dl>
-
-            <form asp-action="Delete">
-                <input type="hidden" asp-for="Id" />
-                <input type="submit" value="Delete" class="btn btn-danger-custom" />
-                <a asp-action="Index" class="btn btn-custom-back">Back to List</a>
-            </form>
         </div>
     </div>
-</div>
+
+    <div class="card border-info">
+        <div class="card-header custom-header">
+            <h4 class="mb-0">Products</h4>
+        </div>
+        <div class="card-body custom-body">
+            <table class="table table-striped table-custom">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Products)
+                    {
+                        <tr>
+                            <td>@product.Id</td>
+                            <td>@product.ProductName</td>
+                            <td>@product.ProductQuantity</td>
+                            <td>@product.ProductDescription</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+    <div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input style=margin:15px; type ="submit" value="Delete" class="btn btn-danger-custom" />
+        <a asp-action="Index" style=margin:15px; class ="btn btn-custom-back">Back to List</a>
+    </form>
+    </div>
