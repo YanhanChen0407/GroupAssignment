@@ -137,6 +137,7 @@ namespace GroupAssignment.Controllers
             return View(productEntity);
         }
 
+
         // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -144,15 +145,34 @@ namespace GroupAssignment.Controllers
         {
             if (_context.Products == null)
             {
-                return Problem("Entity set 'AppDbContext.Products'  is null.");
+                return Problem("Entity set 'AppDbContext.Products' is null.");
             }
+
             var productEntity = await _context.Products.FindAsync(id);
-            if (productEntity != null)
+            if (productEntity == null)
             {
-                _context.Products.Remove(productEntity);
+                return NotFound();
             }
-            
+
+            // Retrieve all orders that may contain the product
+            var ordersWithProduct = await _context.Orders
+                .Where(o => o.Products.Any(p => p.Id == id))
+                .ToListAsync();
+
+            foreach (var order in ordersWithProduct)
+            {
+                // Remove the product from the order
+                var productToRemove = order.Products.FirstOrDefault(p => p.Id == id);
+                if (productToRemove != null)
+                {
+                    order.Products.Remove(productToRemove);
+                }
+            }
+
+            // Now remove the product itself
+            _context.Products.Remove(productEntity);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

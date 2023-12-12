@@ -1,36 +1,58 @@
 ﻿@model ProductEntity
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Product Details";
 }
 
-<h1>Details</h1>
+<style>
+    .info-text {
+        color: #155724; /* Dark green for better contrast */
+    }
 
-<div>
-    <h4>ProductEntity</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductQuantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductQuantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductDescription)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    .custom-header {
+        background-color: #d4edda; /* Lighter green header background for contrast */
+        color: #0c5460; /* Dark blue text color for contrast */
+    }
+
+    .custom-body {
+        background-color: #f8f9fa; /* Light gray body background, ensuring dark text is visible */
+    }
+
+    .btn-custom {
+        background-color: #28a745; /* Bootstrap green color for buttons */
+        color: white; /* White text for contrast */
+        margin-right: 5px; /* Add some spacing between the buttons */
+    }
+
+    .btn-custom-back {
+        background-color: #6c757d; /* Bootstrap gray color for back button */
+        color: white; /* White text for contrast */
+    }
+</style>
+
+<div class="container mt-4">
+    <h1 class="info-text">@ViewData["Title"]</h1>
+
+    <div class="card border-info mb-4">
+        <div class="card-header custom-header">
+            <h4 class="mb-0">Product Details</h4>
+        </div>
+        <div class="card-body custom-body">
+            <dl class="row">
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ProductName)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.ProductName)</dd>
+
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ProductQuantity)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.ProductQuantity)</dd>
+
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ProductDescription)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.ProductDescription)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-custom">Edit</a>
+        <a asp-action="Index" class="btn btn-custom-back">Back to List</a>
+    </div>
 </div>

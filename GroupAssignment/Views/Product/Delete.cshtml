@@ -1,39 +1,60 @@
 ﻿@model ProductEntity
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Product";
 }
 
-<h1>Delete</h1>
+<style>
+    .info-text {
+        color: #721c24; /* Dark red for emphasis */
+    }
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>ProductEntity</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductQuantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductQuantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductDescription)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    .custom-header {
+        background-color: #f8d7da; /* Light red header background for warning */
+        color: #721c24; /* Dark red text color for contrast */
+    }
+
+    .custom-body {
+        background-color: #f8f9fa; /* Light gray body background, ensuring dark text is visible */
+    }
+
+    .btn-danger-custom {
+        background-color: #dc3545; /* Bootstrap red color for delete button */
+        color: white; /* White text for contrast */
+    }
+
+    .btn-custom-back {
+        background-color: #6c757d; /* Bootstrap gray color for back button */
+        color: white; /* White text for contrast */
+    }
+</style>
+
+<div class="container mt-4">
+    <h1 class="info-text">@ViewData["Title"]</h1>
+
+    <h3 class="text-danger">Are you sure you want to delete this?</h3>
+
+    <div class="card border-danger mb-4">
+        <div class="card-header custom-header">
+            <h4 class="mb-0">Product Details</h4>
+        </div>
+        <div class="card-body custom-body">
+            <dl class="row">
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ProductName)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.ProductName)</dd>
+
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ProductQuantity)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.ProductQuantity)</dd>
+
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ProductDescription)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.ProductDescription)</dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Delete" class="btn btn-danger-custom" />
+                <a asp-action="Index" class="btn btn-custom-back">Back to List</a>
+            </form>
+        </div>
+    </div>
 </div>
