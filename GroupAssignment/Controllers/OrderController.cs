@@ -147,15 +147,27 @@ namespace GroupAssignment.Controllers
         {
             if (_context.Orders == null)
             {
-                return Problem("Entity set 'AppDbContext.Orders'  is null.");
+                return Problem("Entity set 'AppDbContext.Orders' is null.");
             }
-            var orderEntity = await _context.Orders.FindAsync(id);
+
+            
+            var orderEntity = await _context.Orders
+                .Include(o => o.Products) 
+                .FirstOrDefaultAsync(o => o.Id == id);
+
             if (orderEntity != null)
             {
+                // Manually remove the related products
+                foreach (var product in orderEntity.Products.ToList())
+                {
+                    _context.Products.Remove(product);
+                }
+
+                // Now remove the order itself
                 _context.Orders.Remove(orderEntity);
+                await _context.SaveChangesAsync(); 
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
