@@ -8,7 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using GroupAssignment;
 using GroupAssignment.Models;
 using Microsoft.AspNetCore.Authorization;
-
+//Dulan Wasala 
+//991574529
+//Group Assignment 
+//Controller for Product
 namespace GroupAssignment.Controllers
 {
     public class ProductController : Controller

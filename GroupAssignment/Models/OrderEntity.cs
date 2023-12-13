@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+//Dulan Wasala 
+//991574529
+//Group Assignment 
+//Model for Order
 namespace GroupAssignment.Models
 {
     public class OrderEntity

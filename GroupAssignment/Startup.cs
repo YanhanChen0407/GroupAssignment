@@ -32,9 +32,9 @@ namespace GroupAssignment
             });
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(30); // 会话超时时间
-                options.Cookie.HttpOnly = true; // 增加安全性
-                options.Cookie.IsEssential = true; // 标记为必要Cookie
+                options.IdleTimeout = TimeSpan.FromMinutes(30); 
+                options.Cookie.HttpOnly = true; 
+                options.Cookie.IsEssential = true; 
             });
             services.AddControllersWithViews();
 
