@@ -4,7 +4,7 @@
 }
 
 <style>
-    body {
+    .register-container {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -12,70 +12,73 @@
         margin: 0;
     }
 
-    h1 {
-        text-align: center;
-    }
-    form {
+    .register-form {
         text-align: center;
         border: 1px solid #ccc;
         padding: 20px;
         border-radius: 8px;
         width: 300px;
-        margin: auto; 
-    }
-    div {
-        margin-bottom: 10px;
+        margin: auto;
     }
 
-    label {
-        display: block;
-    }
+        .register-form div {
+            margin-bottom: 10px;
+        }
 
-    input, select {
-        width: 100%;
-        padding: 8px;
-        box-sizing: border-box;
-        margin-top: 4px;
-    }
+        .register-form label {
+            display: block;
+        }
 
-    button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+        .register-form input,
+        .register-form select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-top: 4px;
+        }
+
+        .register-form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 </style>
 
-<h1>@ViewData["Title"]</h1>
+<div class="register-container">
+    <div class="register-form">
+        <h1>@ViewData["Title"]</h1>
 
-<form asp-controller="Account" asp-action="Register" method="post">
-    <div>
-        <label asp-for="Username">Username：</label>
-        <input asp-for="Username" />
-        <span asp-validation-for="Username"></span>
-    </div>
+        <form asp-controller="Account" asp-action="Register" method="post">
+            <div>
+                <label asp-for="Username">Username：</label>
+                <input asp-for="Username" />
+                <span asp-validation-for="Username"></span>
+            </div>
 
-    <div>
-        <label asp-for="Email">Email：</label>
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
+            <div>
+                <label asp-for="Email">Email：</label>
+                <input asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
 
-    <div>
-        <label asp-for="Password">Password：</label>
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="Role">Role：</label>
-        <select asp-for="Role" class="form-control">
-            <option value="Employee">Employee</option>
-            <option value="Manager">Manager</option>
-        </select>
-        <span asp-validation-for="Role" class="text-danger"></span>
-    </div>
+            <div>
+                <label asp-for="Password">Password：</label>
+                <input asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div>
+                <label asp-for="Role">Role：</label>
+                <select asp-for="Role" class="form-control">
+                    <option value="Employee">Employee</option>
+                    <option value="Manager">Manager</option>
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
 
-    <button type="submit">Register</button>
-</form>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</div>

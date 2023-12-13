@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GroupAssignment;
 using GroupAssignment.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GroupAssignment.Controllers
 {
@@ -20,6 +21,7 @@ namespace GroupAssignment.Controllers
         }
 
         // GET: Product
+        [Authorize]
         public async Task<IActionResult> Index()
         {
               return _context.Products != null ? 
@@ -28,6 +30,7 @@ namespace GroupAssignment.Controllers
         }
 
         // GET: Product/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.Products == null)
@@ -46,6 +49,7 @@ namespace GroupAssignment.Controllers
         }
 
         // GET: Product/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -56,6 +60,7 @@ namespace GroupAssignment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,ProductName,ProductQuantity,ProductDescription")] ProductEntity productEntity)
         {
             if (ModelState.IsValid)
@@ -69,6 +74,7 @@ namespace GroupAssignment.Controllers
         }
 
         // GET: Product/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Products == null)
@@ -89,6 +95,7 @@ namespace GroupAssignment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,ProductName,ProductQuantity,ProductDescription")] ProductEntity productEntity)
         {
             if (id != productEntity.Id)
@@ -120,6 +127,7 @@ namespace GroupAssignment.Controllers
         }
 
         // GET: Product/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Products == null)
@@ -141,6 +149,7 @@ namespace GroupAssignment.Controllers
         // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             if (_context.Products == null)

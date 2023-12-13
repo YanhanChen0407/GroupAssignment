@@ -1,10 +1,13 @@
 ﻿@model UserModel
 
 @{
-    ViewData["Title"] = "User login";
+    ViewData["Title"] = "User Login";
+    var returnUrl = Context.Request.Query["ReturnUrl"];
+    var showAccessDeniedMessage = !string.IsNullOrEmpty(returnUrl);
 }
+
 <style>
-    body {
+    .login-container {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -12,11 +15,7 @@
         margin: 0;
     }
 
-    h1 {
-        text-align: center;
-    }
-
-    form {
+    .login-form {
         text-align: center;
         border: 1px solid #ccc;
         padding: 20px;
@@ -25,46 +24,60 @@
         margin: auto;
     }
 
-    div {
-        margin-bottom: 10px;
-    }
+        .login-form div {
+            margin-bottom: 10px;
+        }
 
-    label {
-        display: block;
-    }
+        .login-form label {
+            display: block;
+        }
 
-    input, select {
-        width: 100%;
-        padding: 8px;
-        box-sizing: border-box;
-        margin-top: 4px;
-    }
+        .login-form input,
+        .login-form select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-top: 4px;
+        }
 
-    button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+        .login-form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 </style>
-<h1>@ViewData["Title"]</h1>
 
-<form asp-controller="Account" asp-action="Login" method="post">
-    <div>
-        <label asp-for="Username">Username：</label>
-        <input asp-for="Username" />
-        <span asp-validation-for="Username" class="text-danger"></span>
+<div class="login-container">
+    <div class="login-form">
+        <h1>@ViewData["Title"]</h1>
+        @if (showAccessDeniedMessage)
+        {
+            <div class="alert alert-warning">
+                <strong>Notice：</strong> You need to log in to access the requested page。
+            </div>
+        }
+        <form asp-controller="Account" asp-action="Login" method="post">
+            <div>
+                <label asp-for="Username">Username：</label>
+                <input asp-for="Username" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Password">Password：</label>
+                <input asp-for="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <span asp-validation-summary="ModelOnly" class="text-danger"></span>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 15px;">
+            <p>No account?<a asp-controller="Account" asp-action="Register">Sign up here</a></p>
+        </div>
     </div>
-
-    <div>
-        <label asp-for="Password">Password：</label>
-        <input asp-for="Password" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <span asp-validation-summary="ModelOnly" class="text-danger"></span>
-
-
-    <button type="submit">Login</button>
-</form>
+</div>

@@ -4,8 +4,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using GroupAssignment;
-    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authentication.Cookies;
     using System.Security.Claims;
     using System;
     using System.Collections.Generic;
@@ -47,28 +47,34 @@
             return View();
         }
         [HttpPost]
-        public IActionResult Login(UserModel model)
+        public async Task<IActionResult> Login(UserModel model)
         {
-
             var user = _dbContext.Users.FirstOrDefault(u => u.Username == model.Username && u.Password == model.Password);
 
             if (user != null)
             {
-                TempData["UserId"] = user.Id;
-                TempData["Username"] = user.Username;
-                TempData["UserRole"] = user.Role;
-                Console.WriteLine($"Login successful for username: {model.Username}, UserId: {user.Id}, Role: {user.Role}");
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Role, user.Role),
+                };
 
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+                var props = new AuthenticationProperties();
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props);
 
                 return RedirectToAction("Index", "Inventory");
             }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Incorrect username or password");
-                Console.WriteLine($"Login failed for username: {model.Username}, password: {model.Password}");
 
-            }
+            ModelState.AddModelError(string.Empty, "Incorrect username or password");
             return View(model);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
         }
 
         public IActionResult Users()

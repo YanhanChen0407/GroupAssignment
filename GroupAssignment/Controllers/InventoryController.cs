@@ -1,5 +1,6 @@
 ﻿using GroupAssignment;
 using GroupAssignment.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -12,7 +13,7 @@ public class InventoryController : Controller
     {
         _dbContext = dbContext;
     }
-
+    [Authorize]
     public IActionResult Index()
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -22,7 +23,7 @@ public class InventoryController : Controller
 
         return View();
     }
-
+    [Authorize]
     public IActionResult ProductList()
     {
         //var products = _dbContext.Products.Select(p => new ProductModel { Id = p.Id, 

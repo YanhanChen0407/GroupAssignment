@@ -1,66 +1,57 @@
-﻿<!-- Views/Inventory/Index.cshtml -->
-@model GroupAssignment.Models.UserModel
-<style>
-    body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-    }
-
-    div {
-        text-align: center;
-    }
-
-    h1 {
-        text-align: center;
-    }
-
-    p {
-        margin-bottom: 5px;
-    }
-
-    .role {
-        font-size: 14px; 
-    }
-
-    .btn {
-        margin-top: 10px; 
-    }
-</style>
+﻿@model GroupAssignment.Models.UserModel
 @{
     ViewData["Title"] = "Inventory Management";
 }
 
+<style>
+    .inventory-container {
+        margin: 0 auto; 
+        width: 100%; 
+        max-width: 600px; 
+        text-align: center;
+        padding: 20px; 
+    }
 
-<h1>@ViewData["Title"]</h1>
+        .inventory-container h1 {
+            margin-bottom: 20px; 
+        }
 
-<div>
-   @if (TempData.ContainsKey("UserId") && TempData.ContainsKey("Username") && TempData.ContainsKey("UserRole"))
+        .inventory-container p {
+            margin-bottom: 10px; 
+        }
+
+        .inventory-container .role {
+            font-size: 14px;
+        }
+
+        .inventory-container .btn {
+            margin-top: 10px;
+            margin-bottom: 10px; 
+        }
+</style>
+
+<div class="inventory-container">
+    <h1>@ViewData["Title"]</h1>
+
+    @if (User.Identity.IsAuthenticated)
     {
-        var userId = TempData["UserId"] as int?;
-        var username = TempData["Username"] as string;
-        var userRole = TempData["UserRole"] as string;
+        var username = User.Identity.Name;
+        var userRole = User.IsInRole("Manager") ? "Manager" : "Employee";
 
-        <div>
-            <p>Welcome, @username!</p>
-            <p>You are: @userRole</p>
-        </div>
+        <p>Welcome, @username!</p>
+        <p>Your role: @userRole</p>
         @if (userRole == "Manager")
         {
-            <div>
-                <a href="/Account/Users" class="btn btn-primary">View All Users</a>
-            </div>
+            <a href="/Account/Users" class="btn btn-primary">View All Users</a>
         }
         <a href="@Url.Action("Index", "Product")" class="btn btn-primary">Product List</a>
         <a href="@Url.Action("Index", "Order")" class="btn btn-primary">View Orders</a>
-
-
+        <form asp-controller="Account" asp-action="Logout" method="post">
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
     }
     else
     {
         <p>User information not available.</p>
     }
-
 </div>

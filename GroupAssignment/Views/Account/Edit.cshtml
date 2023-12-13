@@ -1,7 +1,10 @@
-﻿<!-- Views/Account/Edit.cshtml -->
-@model GroupAssignment.Models.UserModel
+﻿@model GroupAssignment.Models.UserModel
+@{
+    ViewData["Title"] = "Edit User";
+}
+
 <style>
-    body {
+    .edit-user-container {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -9,11 +12,7 @@
         margin: 0;
     }
 
-    h1 {
-        text-align: center;
-    }
-
-    form {
+    .edit-user-form {
         text-align: center;
         border: 1px solid #ccc;
         padding: 20px;
@@ -22,59 +21,60 @@
         margin: auto;
     }
 
-    div {
-        margin-bottom: 10px;
-    }
+        .edit-user-form div {
+            margin-bottom: 10px;
+        }
 
-    label {
-        display: block;
-    }
+        .edit-user-form label {
+            display: block;
+        }
 
-    input, select {
-        width: 100%;
-        padding: 8px;
-        box-sizing: border-box;
-        margin-top: 4px;
-    }
+        .edit-user-form input,
+        .edit-user-form select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-top: 4px;
+        }
 
-    button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+        .edit-user-form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 </style>
-@{
-    ViewData["Title"] = "Edit User";
-}
 
-<h1>@ViewData["Title"]</h1>
+<div class="edit-user-container">
+    <div class="edit-user-form">
+        <h1>@ViewData["Title"]</h1>
 
-<form asp-controller="Account" asp-action="Edit" method="post">
-    <input type="hidden" asp-for="Id" />
+        <form asp-controller="Account" asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
 
-    <div>
-        <label asp-for="Username">Username:</label>
-        <input asp-for="Username" />
-        <span asp-validation-for="Username" class="text-danger"></span>
+            <div>
+                <label asp-for="Username">Username:</label>
+                <input asp-for="Username" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Email">Email:</label>
+                <input asp-for="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Role">Role:</label>
+                <select asp-for="Role" class="form-control">
+                    <option value="Employee">Employee</option>
+                    <option value="Manager">Manager</option>
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+
+            <button type="submit">Save Changes</button>
+        </form>
     </div>
-    <div>
-        <label asp-for="Email">Email:</label>
-        <input asp-for="Email" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="Role">Role:</label>
-        <select asp-for="Role" class="form-control">
-            <option value="Employee">Employee</option>
-            <option value="Manager">Manager</option>
-        </select>
-        <span asp-validation-for="Role" class="text-danger"></span>
-    </div>
-
-
-    <button type="submit">Save Changes</button>
-</form>
+</div>
