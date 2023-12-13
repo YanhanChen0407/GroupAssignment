@@ -1,4 +1,8 @@
-﻿using System;
+﻿//Yanhan Chen
+//991647343
+//Group Assignment 
+//Model for User
+using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,8 @@
-﻿namespace GroupAssignment.Models
+﻿//Yanhan Chen
+//991647343
+//Group Assignment 
+//Model for Product
+namespace GroupAssignment.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;

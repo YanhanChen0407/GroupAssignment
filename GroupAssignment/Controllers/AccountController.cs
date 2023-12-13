@@ -1,4 +1,8 @@
-﻿namespace GroupAssignment.Controllers
+﻿//Yanhan Chen
+//991647343
+//Group Assignment 
+//Controller for Account
+namespace GroupAssignment.Controllers
 {
     using GroupAssignment.Models;
     using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,9 @@
 ﻿using GroupAssignment.Models;
 using Microsoft.EntityFrameworkCore;
-
+//Yanhan Chen
+//991647343
+//Group Assignment 
+//Database
 namespace GroupAssignment
 {
 

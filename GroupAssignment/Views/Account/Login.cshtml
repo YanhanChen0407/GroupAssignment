@@ -1,10 +1,5 @@
 ﻿@model UserModel
 
-@{
-    ViewData["Title"] = "User Login";
-    var returnUrl = Context.Request.Query["ReturnUrl"];
-    var showAccessDeniedMessage = !string.IsNullOrEmpty(returnUrl);
-}
 
 <style>
     .login-container {
@@ -49,6 +44,17 @@
             cursor: pointer;
         }
 </style>
+@*
+Yanhan Chen
+991647343
+Group Assignment
+User Login view
+*@
+@{
+    ViewData["Title"] = "User Login";
+    var returnUrl = Context.Request.Query["ReturnUrl"];
+    var showAccessDeniedMessage = !string.IsNullOrEmpty(returnUrl);
+}
 
 <div class="login-container">
     <div class="login-form">
